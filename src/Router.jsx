@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
+import Home from "./components/Home";
 import App from "./App";
-import HOME from "./HOME";
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +9,15 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <HOME></HOME>,
+        element: <Home></Home>,
+        loader: () =>
+          fetch("https://crowdcudee-backend.vercel.app/home", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(),
+          }),
       },
     ],
   },
