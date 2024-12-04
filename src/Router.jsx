@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
         path: "/home",
         element: <Home></Home>,
         loader: () =>
-          fetch("https://crowdcudee-backend.vercel.app/home", {
+          fetch("https://crowdcudee-backend.vercel.app", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",

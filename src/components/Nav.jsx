@@ -6,9 +6,9 @@ function Nav() {
 
   return (
     <>
-      <div className="navbar justify-between border-2  ">
+      <div className="navbar justify-between  ">
         {/* //drawer */}
-        <div className="drawer lg:hidden border-2 w-10 ">
+        <div className="drawer lg:hidden w-10  z-10">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content ">
             <label htmlFor="my-drawer" className="border-none bg-transparent ">
@@ -91,7 +91,7 @@ function Nav() {
         </div>
 
         {/* logo */}
-        <div className="border-2">
+        <div className="">
           <a className="btn btn-ghost text-xl">CrowdCube</a>
         </div>
 
@@ -140,7 +140,7 @@ function Nav() {
         </div>
 
         {/* login */}
-        <div className=" border-2 border-red-500   gap-5">
+        <div className=" border-red-500   gap-5">
           <div>
             {status ? (
               <button onClick={() => setStatus(false)}>LogOut</button>
