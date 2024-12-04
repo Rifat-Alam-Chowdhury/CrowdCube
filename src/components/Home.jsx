@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLoaderData } from "react-router";
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import RunnigCampaing from "./RunnigCampaing";
@@ -7,7 +7,7 @@ function Home() {
   const data = useLoaderData();
 
   const [User, setUser] = useState(data);
-  console.log(User);
+
   const uppdateuser = () => {
     setUser([
       ...User,

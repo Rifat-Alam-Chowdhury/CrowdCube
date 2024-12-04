@@ -1,3 +1,4 @@
+import React from "react";
 import { createBrowserRouter } from "react-router";
 import Home from "./components/Home";
 import App from "./App";
@@ -15,18 +16,12 @@ export const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home></Home>,
-        loader: () =>
-          fetch("https://crowdcudee-backend.vercel.app", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(),
-          }),
+        loader: () => fetch("https://crowdcudee-backend.vercel.app"),
       },
       {
         path: "/AllCampaign",
         element: <AllCampaign />,
+        loader: () => fetch("https://crowdcudee-backend.vercel.app"),
       },
       {
         path: "/Add_New_Campaign",

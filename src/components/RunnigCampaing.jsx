@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 
 function RunnigCampaing({ User }) {
   const [user, setuser] = useState(User);
-  console.log(user);
+  // console.log(user);
   const LearnMore = (e) => {
     console.log(e);
   };
