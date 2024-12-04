@@ -1,11 +1,17 @@
 import { Outlet } from "react-router";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <>
-      <h1 className="text-2xl text-green-700 bg-green-500">test</h1>
       {/* navbar thakbe */}
-      <Outlet></Outlet>
+      <Nav></Nav>
+
+      <div className="min-h-[calc(100vh-286px)]">
+        <Outlet></Outlet>
+      </div>
+      <Footer />
       {/* footer thkbe */}
     </>
   );
