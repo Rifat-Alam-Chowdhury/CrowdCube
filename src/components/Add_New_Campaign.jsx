@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Dcontext } from "../Context/DataContext";
 
 function Add_New_Campaign() {
+  const { UserData, setFormDataFromDataBase } = useContext(Dcontext);
+  // console.log(UserData);
+
+  // const id = UserData[0]._id;
+  // console.log(UserData[0]._id);
+
   const FormInfo = (e) => {
     e.preventDefault();
 
@@ -8,24 +15,38 @@ function Add_New_Campaign() {
     const cap = e.target.cap.value;
     const url = e.target.url.value;
     const display = e.target.display.value;
+    const email = e.target.email.value;
 
     console.log(title, cap, url, display);
+
+    // https://crowdcudee-backend.vercel.app/
 
     fetch("https://crowdcudee-backend.vercel.app/formdetails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title, cap, url, display }),
+      body: JSON.stringify({ title, cap, url, display, email }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => setFormDataFromDataBase(data))
       .catch((error) => console.error("Error:", error));
   };
 
   return (
     <>
       <form onSubmit={FormInfo} className="card-body">
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">email</span>
+          </label>
+          <input
+            name="email"
+            type="text"
+            placeholder="email"
+            className="input input-bordered"
+          />
+        </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">title</span>

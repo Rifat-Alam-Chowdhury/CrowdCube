@@ -7,6 +7,7 @@ function Home() {
   const data = useLoaderData();
 
   const [User, setUser] = useState(data);
+  console.log(User);
 
   const uppdateuser = () => {
     setUser([
@@ -29,7 +30,7 @@ function Home() {
         loop={true}
         className=""
       >
-        {User.map((user) => (
+        {User?.map((user) => (
           <div className="relative   w-full h-64 lg:h-96">
             <img
               src={user.url}
@@ -50,8 +51,8 @@ function Home() {
                   color="white"
                   className="mb-12 lg:text-4xl text-xs opacity-80"
                 >
-                  {user.cap.slice(0, 70)}
-                  {user.cap.length > 70 && "..."}
+                  {user?.cap?.slice(0, 70)}
+                  {user?.cap?.length > 70 && "..."}
                 </Typography>
                 <div className="flex justify-center gap-2">
                   <Button size="lg" color="white">
@@ -70,9 +71,6 @@ function Home() {
         <RunnigCampaing User={User} />
       </div>
       {/* running campaing selection */}
-      <button onClick={uppdateuser} className="btn btn-secondary">
-        Secondary
-      </button>{" "}
     </>
   );
 }

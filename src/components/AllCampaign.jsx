@@ -9,7 +9,8 @@ import {
   Tooltip,
   IconButton,
 } from "@material-tailwind/react";
-import { Link, useLoaderData } from "react-router";
+import { useLoaderData } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function AllCampaign() {
   const UserData = useLoaderData();
@@ -44,7 +45,7 @@ export default function AllCampaign() {
                 </Typography>
               </div>
               <Typography color="gray">
-                <p className="truncate">{data?.cap.slice(0, 200)}</p>
+                <p className="truncate">{data?.cap?.slice(0, 200)}</p>
               </Typography>
             </CardBody>
             <CardFooter className="pt-3">

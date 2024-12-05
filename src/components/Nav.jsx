@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { Link } from "react-router-dom";
 
 function Nav() {
   const [status, setStatus] = useState(false);
@@ -36,8 +36,8 @@ function Nav() {
             ></label>
             <ul className="menu bg-base-200  min-h-full  p-4">
               {/* Sidebar content here */}
-              <NavLink
-                to="/home"
+              <Link
+                to="/"
                 className={({ isActive }) =>
                   `${
                     isActive ? "text-yellow-500" : "text-black"
@@ -45,8 +45,8 @@ function Nav() {
                 }
               >
                 Home
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
                 to="/AllCampaign"
                 className={({ isActive }) =>
                   `${
@@ -55,9 +55,9 @@ function Nav() {
                 }
               >
                 All Campaign
-              </NavLink>
-              <NavLink
-                to="/Add_New_Campaign"
+              </Link>
+              <Link
+                to="/AddNewCampaign"
                 className={({ isActive }) =>
                   `${
                     isActive ? "text-yellow-500" : "text-black"
@@ -65,9 +65,9 @@ function Nav() {
                 }
               >
                 Add New Campaign
-              </NavLink>
-              <NavLink
-                to="/My_Campaigns"
+              </Link>
+              <Link
+                to="/MyCampaigns"
                 className={({ isActive }) =>
                   `${
                     isActive ? "text-yellow-500" : "text-black"
@@ -75,9 +75,9 @@ function Nav() {
                 }
               >
                 My Campaign
-              </NavLink>
-              <NavLink
-                to="/My_Donations"
+              </Link>
+              <Link
+                to="/MyDonations"
                 className={({ isActive }) =>
                   `${
                     isActive ? "text-yellow-500" : "text-black"
@@ -85,7 +85,7 @@ function Nav() {
                 }
               >
                 My Donations
-              </NavLink>
+              </Link>
             </ul>
           </div>
         </div>
@@ -97,46 +97,46 @@ function Nav() {
 
         {/* links */}
         <div className=" gap-10 hidden lg:flex">
-          <NavLink
-            to="/home"
+          <Link
+            to="/"
             className={({ isActive }) =>
               `${isActive ? "text-yellow-500" : "text-black"} rounded-xl  p-1`
             }
           >
             Home
-          </NavLink>
-          <NavLink
+          </Link>
+          <Link
             to="/AllCampaign"
             className={({ isActive }) =>
               `${isActive ? "text-yellow-500" : "text-black"} rounded-xl  p-1`
             }
           >
             All Campaign
-          </NavLink>
-          <NavLink
-            to="/Add_New_Campaign"
+          </Link>
+          <Link
+            to="/AddNewCampaign"
             className={({ isActive }) =>
               `${isActive ? "text-yellow-500" : "text-black"} rounded-xl  p-1`
             }
           >
             Add New Campaign
-          </NavLink>
-          <NavLink
-            to="/My_Campaigns"
+          </Link>
+          <Link
+            to="/MyCampaigns"
             className={({ isActive }) =>
               `${isActive ? "text-yellow-500" : "text-black"} rounded-xl  p-1`
             }
           >
             My Campaign
-          </NavLink>
-          <NavLink
-            to="/My_Donations"
+          </Link>
+          <Link
+            to="/MyDonations"
             className={({ isActive }) =>
               `${isActive ? "text-yellow-500" : "text-black"} rounded-xl  p-1`
             }
           >
             My Donations
-          </NavLink>
+          </Link>
         </div>
 
         {/* login */}
@@ -145,9 +145,9 @@ function Nav() {
             {status ? (
               <button onClick={() => setStatus(false)}>LogOut</button>
             ) : (
-              <NavLink>
+              <Link to={"/login"}>
                 <button onClick={() => setStatus(true)}>Login</button>
-              </NavLink>
+              </Link>
             )}
           </div>
 

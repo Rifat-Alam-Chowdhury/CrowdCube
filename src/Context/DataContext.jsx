@@ -4,6 +4,7 @@ export const Dcontext = createContext();
 
 const DataContext = ({ children }) => {
   const [UserData, setUserData] = useState([]);
+  const [FormDataFromDataBase, setFormDataFromDataBase] = useState([]);
 
   useEffect(() => {
     fetch("https://crowdcudee-backend.vercel.app")
@@ -15,6 +16,8 @@ const DataContext = ({ children }) => {
 
   const value = {
     UserData,
+    FormDataFromDataBase,
+    setFormDataFromDataBase,
   };
   return <Dcontext.Provider value={value}>{children}</Dcontext.Provider>;
 };

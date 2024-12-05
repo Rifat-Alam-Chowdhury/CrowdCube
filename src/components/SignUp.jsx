@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { AuthCOn } from "../Context/AuthContext";
-import { Link } from "react-router-dom";
+import { Dcontext } from "../Context/DataContext";
+import { Link, NavLink } from "react-router-dom";
 
-function Login() {
-  const { UserLogInWithEmailPass } = useContext(AuthCOn);
+function SignUp() {
+  const { CreateNewUser } = useContext(AuthCOn);
   const navigate = useNavigate();
 
   const HandelLogin = (e) => {
@@ -14,13 +15,9 @@ function Login() {
     const password = e.target.password.value;
 
     console.log(email, password);
-    UserLogInWithEmailPass(email, password)
-      .then((userCredential) => {
-        navigate("/home");
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((err) => console.log(err.code));
+    CreateNewUser(email, password).then(() => {
+      navigate("/");
+    });
   };
 
   return (
@@ -66,13 +63,13 @@ function Login() {
               </div>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
-                  Login
+                  Signup
                 </button>
-                <button className="btn">google login</button>
+                <button className="btn">google Sign Up</button>
               </div>
             </form>
             <h1>
-              new to the website? <Link to={"/Signup"}>Signup</Link>
+              Already have an account ? <Link to={"/login"}>login</Link>
             </h1>
           </div>
         </div>
@@ -81,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

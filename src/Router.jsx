@@ -1,5 +1,6 @@
 import React from "react";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
+
 import Home from "./components/Home";
 import App from "./App";
 import AllCampaign from "./components/AllCampaign";
@@ -8,6 +9,8 @@ import My_Campaigns from "./components/My_Campaigns";
 import My_Donations from "./components/My_Donations";
 import Login from "./components/Login";
 import CampainDetails from "./components/CampainDetails";
+import SignUp from "./components/SignUp";
+import Private from "./components/Private/Private";
 
 export const router = createBrowserRouter([
   {
@@ -19,27 +22,35 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
         loader: () => fetch("https://crowdcudee-backend.vercel.app"),
       },
-      {
-        path: "/home",
-        element: <Home></Home>,
-        loader: () => fetch("https://crowdcudee-backend.vercel.app"),
-      },
+
       {
         path: "/AllCampaign",
         element: <AllCampaign />,
         loader: () => fetch("https://crowdcudee-backend.vercel.app"),
       },
       {
-        path: "/Add_New_Campaign",
-        element: <Add_New_Campaign />,
+        path: "/AddNewCampaign",
+        element: (
+          <Private>
+            <Add_New_Campaign />
+          </Private>
+        ),
       },
       {
-        path: "/My_Campaigns",
-        element: <My_Campaigns />,
+        path: "/MyCampaigns",
+        element: (
+          <Private>
+            <My_Campaigns />
+          </Private>
+        ),
       },
       {
-        path: "/My_Donations",
-        element: <My_Donations />,
+        path: "/MyDonations",
+        element: (
+          <Private>
+            <My_Donations />
+          </Private>
+        ),
       },
       {
         path: "/campaignDetails/:id",
@@ -50,5 +61,9 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login></Login>,
+  },
+  {
+    path: "/SignUp",
+    element: <SignUp></SignUp>,
   },
 ]);
