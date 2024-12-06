@@ -1,15 +1,26 @@
 import { createContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/FireBaseAuth";
 export const AuthCOn = createContext();
 const AuthCOntext = ({ children }) => {
+  const [loader, setloader] = useState(true);
+  const [user, setuser] = useState(null);
+  const [LogInuser, setLogInuser] = useState(null);
+  //signout
+  const SigNout = () => {
+    return signOut(auth);
+  };
+
   // new user
-  const CreateNewUser = async (email, password) => {
+  const CreateNewUser = async (email, password, displayName, photoURL) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((user) => {
         const email = user.user.email;
@@ -20,6 +31,8 @@ const AuthCOntext = ({ children }) => {
           email,
           emailVerified,
           providerId,
+          displayName,
+          photoURL,
         };
         // https://crowdcudee-backend.vercel.app/
         fetch("https://crowdcudee-backend.vercel.app/firebaseuid", {
@@ -37,6 +50,38 @@ const AuthCOntext = ({ children }) => {
       });
   };
 
+  // google login
+  const provider = new GoogleAuthProvider();
+  const GoogleLogIn = async () => {
+    return signInWithPopup(auth, provider)
+      .then((user) => {
+        const email = user.user.email;
+        const emailVerified = user.user.emailVerified;
+        const providerId = user.user.providerId;
+        const displayName = user.user.displayName;
+        const photoURL = user.user.photoURL;
+        console.log(email, emailVerified, providerId, displayName, photoURL);
+        const FIreBaseData = {
+          email,
+          emailVerified,
+          providerId,
+          displayName,
+          photoURL,
+        };
+        // https://crowdcudee-backend.vercel.app/
+        fetch("https://crowdcudee-backend.vercel.app/firebaseuid", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(FIreBaseData),
+        });
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
+  };
+
   // old user login
   const UserLogInWithEmailPass = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
@@ -44,25 +89,29 @@ const AuthCOntext = ({ children }) => {
 
   // observer
 
-  const [loader, setloader] = useState(null);
+  console.log(user, loader);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setloader(false);
-        console.log(user);
-      } else {
-        setloader(true);
+        setuser(user);
+        setLogInuser(user.email);
       }
+      setloader(false);
     });
 
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   const values = {
     CreateNewUser,
     UserLogInWithEmailPass,
+    GoogleLogIn,
     loader,
     setloader,
+    user,
+    SigNout,
+    LogInuser,
   };
   return <AuthCOn.Provider value={values}>{children}</AuthCOn.Provider>;
 };

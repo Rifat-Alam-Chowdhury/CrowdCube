@@ -10,7 +10,7 @@ function My_Campaigns() {
 
   useEffect(() => {
     fetch(`https://crowdcudee-backend.vercel.app/allcolection/${Find}`)
-      .then((res) => res.json()) // Make sure to return the JSON response
+      .then((res) => res.json())
       .then((data) => {
         setFoundeddata(data);
       })

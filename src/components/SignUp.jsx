@@ -1,78 +1,93 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCOn } from "../Context/AuthContext";
-import { Dcontext } from "../Context/DataContext";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Input,
+  Checkbox,
+  Button,
+} from "@material-tailwind/react";
 import { Link, NavLink } from "react-router-dom";
 
 function SignUp() {
-  const { CreateNewUser } = useContext(AuthCOn);
+  const { CreateNewUser, GoogleLogIn } = useContext(AuthCOn);
   const navigate = useNavigate();
-
+  let email;
+  let password;
+  let displayName;
+  let photoURL;
   const HandelLogin = (e) => {
     e.preventDefault();
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    email = e.target.email.value;
+    password = e.target.password.value;
 
-    console.log(email, password);
-    CreateNewUser(email, password).then(() => {
+    displayName = e.target.name.value;
+
+    photoURL = e.target.PhotoUrl.value;
+
+    console.log(email, password, displayName, photoURL);
+    CreateNewUser(email, password, displayName, photoURL).then(() => {
+      navigate("/");
+    });
+  };
+
+  const HandleGoogleLogIn = () => {
+    GoogleLogIn().then(() => {
       navigate("/");
     });
   };
 
   return (
     <>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-          </div>
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <form onSubmit={HandelLogin} className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  name="email"
-                  type="text"
-                  placeholder="email"
-                  className="input input-bordered"
-                />
+      <div className="flex justify-center items-center h-screen">
+        <form onSubmit={HandelLogin}>
+          <Card className="w-96 mx-auto">
+            <CardHeader
+              variant="gradient"
+              color="red"
+              className="mb-4 grid h-28 place-items-center"
+            >
+              <Typography variant="h3" color="white">
+                Crowd Cube
+              </Typography>
+            </CardHeader>
+
+            <CardBody className="flex flex-col gap-4">
+              <Input name="name" label="Name" size="lg" />
+              <Input name="email" label="Email" size="lg" />
+              <Input name="password" label="Password" size="lg" />
+              <Input name="PhotoUrl" label="PhotoUrl" size="lg" />
+              <div className="-ml-2.5">
+                <Checkbox label="Remember Me" />
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
-              </div>
-              <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary">
-                  Signup
-                </button>
-                <button className="btn">google Sign Up</button>
-              </div>
-            </form>
-            <h1>
-              Already have an account ? <Link to={"/login"}>login</Link>
-            </h1>
-          </div>
-        </div>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <Button type="submit" variant="gradient" fullWidth>
+                Sign Up
+              </Button>
+              <Button onClick={HandleGoogleLogIn} variant="gradient" fullWidth>
+                google
+              </Button>
+              <Typography variant="small" className="mt-6 flex justify-center">
+                Already have an account?
+                <Typography
+                  as="a"
+                  href="#signup"
+                  variant="small"
+                  color="blue-gray"
+                  className="ml-1 font-bold"
+                >
+                  <Link to={"/login"}>Sign In</Link>
+                </Typography>
+              </Typography>
+            </CardFooter>
+          </Card>
+        </form>
       </div>
     </>
   );

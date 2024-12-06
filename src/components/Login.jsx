@@ -2,9 +2,19 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthCOn } from "../Context/AuthContext";
 import { Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Input,
+  Checkbox,
+  Button,
+} from "@material-tailwind/react";
 
 function Login() {
-  const { UserLogInWithEmailPass } = useContext(AuthCOn);
+  const { UserLogInWithEmailPass, GoogleLogIn } = useContext(AuthCOn);
   const navigate = useNavigate();
 
   const HandelLogin = (e) => {
@@ -23,59 +33,56 @@ function Login() {
       .catch((err) => console.log(err.code));
   };
 
+  const HandleGoogleLogIn = () => {
+    GoogleLogIn().then(() => {
+      navigate("/");
+    });
+  };
+
   return (
     <>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-          </div>
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <form onSubmit={HandelLogin} className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  name="email"
-                  type="text"
-                  placeholder="email"
-                  className="input input-bordered"
-                />
+      <div className="flex justify-center items-center h-screen">
+        <form onSubmit={HandelLogin}>
+          <Card className="w-96 mx-auto">
+            <CardHeader
+              variant="gradient"
+              color="red"
+              className="mb-4 grid h-28 place-items-center"
+            >
+              <Typography variant="h3" color="white">
+                Crowd Cube
+              </Typography>
+            </CardHeader>
+
+            <CardBody className="flex flex-col gap-4">
+              <Input name="email" label="Email" size="lg" />
+              <Input name="password" label="Password" size="lg" />
+              <div className="-ml-2.5">
+                <Checkbox label="Remember Me" />
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
-              </div>
-              <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary">
-                  Login
-                </button>
-                <button className="btn">google login</button>
-              </div>
-            </form>
-            <h1>
-              new to the website? <Link to={"/Signup"}>Signup</Link>
-            </h1>
-          </div>
-        </div>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <Button type="submit" variant="gradient" fullWidth>
+                Sign In
+              </Button>
+              <Button onClick={HandleGoogleLogIn} variant="gradient" fullWidth>
+                google
+              </Button>
+              <Typography variant="small" className="mt-6 flex justify-center">
+                Don&apos;t have an account?
+                <Typography
+                  as="a"
+                  href="#signup"
+                  variant="small"
+                  color="blue-gray"
+                  className="ml-1 font-bold"
+                >
+                  <Link to={"/Signup"}>Sign up</Link>
+                </Typography>
+              </Typography>
+            </CardFooter>
+          </Card>
+        </form>
       </div>
     </>
   );

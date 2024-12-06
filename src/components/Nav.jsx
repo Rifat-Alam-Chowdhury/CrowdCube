@@ -1,8 +1,41 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthCOn } from "../Context/AuthContext";
 
 function Nav() {
-  const [status, setStatus] = useState(false);
+  const { user, SigNout, LogInuser } = useContext(AuthCOn);
+
+  const [CurrentUser, setCurrentUser] = useState([]);
+  console.log("filter korar por", CurrentUser);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/firebaseuid")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("mongo thika ana data", data);
+
+        setCurrentUser(data.find((user) => user.email === LogInuser));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [LogInuser]);
+
+  const navigate = useNavigate();
+
+  // console.log(user);
+
+  const handleLogOut = () => {
+    SigNout().then(() => {
+      navigate("/login");
+    });
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
@@ -92,7 +125,9 @@ function Nav() {
 
         {/* logo */}
         <div className="">
-          <a className="btn btn-ghost text-xl">CrowdCube</a>
+          <Link to={"/"} className="btn btn-ghost text-xl">
+            CrowdCube
+          </Link>
         </div>
 
         {/* links */}
@@ -142,24 +177,47 @@ function Nav() {
         {/* login */}
         <div className=" border-red-500   gap-5">
           <div>
-            {status ? (
-              <button onClick={() => setStatus(false)}>LogOut</button>
+            {user ? (
+              <button onClick={handleLogOut}>LogOut</button>
             ) : (
               <Link to={"/login"}>
-                <button onClick={() => setStatus(true)}>Login</button>
+                <button>Login</button>
               </Link>
             )}
           </div>
+        </div>
+        {/* profile */}
+        <div className="relative">
+          {user ? (
+            <div>
+              {/* Button to toggle the dropdown */}
+              <button className="border-2 " onClick={toggleDropdown}>
+                <img
+                  className="w-14 rounded-full"
+                  src={CurrentUser?.photoURL}
+                  alt=""
+                />
+              </button>
 
-          <div className="w-10 rounded-full">
-            <img
-              src={
-                status
-                  ? "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  : ""
-              }
-            />
-          </div>
+              {isOpen && (
+                <div className="absolute top-12 left-0 border-2 p-4 bg-white shadow-lg rounded-md w-60">
+                  <h1>{CurrentUser?.displayName}</h1>
+                  <img
+                    className="w-10"
+                    src="https://lh3.googleusercontent.com/a/ACg8ocKBmB9_ncHJF4qyjxgl_4pJcmyJDxYAy2AME-DfLATjn-Q9kQ=s96-c"
+                    alt="User Avatar"
+                  />
+                  <h1>{CurrentUser?.email}</h1>
+                  <h1>
+                    {CurrentUser?.emailVerified ? "Verified" : "Not Verified"}
+                  </h1>
+                  <h1>Provider: {CurrentUser?.providerId}</h1>
+                </div>
+              )}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>
