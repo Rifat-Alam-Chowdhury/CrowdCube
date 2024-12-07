@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 
 function RunnigCampaing({ User }) {
   const [user, setuser] = useState(User);
-  // console.log(user);
   const LearnMore = (e) => {
     console.log(e);
   };
@@ -51,13 +50,6 @@ function RunnigCampaing({ User }) {
             >
               {user?.title}
             </Typography>
-            <Avatar
-              size="xl"
-              variant="circular"
-              alt="tania andrew"
-              className="border-2 border-white"
-              src={user.display ? user.display : ""}
-            />
           </CardBody>
         </Card>
       ))}

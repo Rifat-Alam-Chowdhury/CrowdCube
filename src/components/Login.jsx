@@ -26,7 +26,7 @@ function Login() {
     console.log(email, password);
     UserLogInWithEmailPass(email, password)
       .then((userCredential) => {
-        navigate("/home");
+        navigate("/");
         const user = userCredential.user;
         console.log(user);
       })
@@ -41,6 +41,10 @@ function Login() {
 
   return (
     <>
+      <div className="flex gap-5 font-extrabold  justify-center">
+        <Link to={"/"}>Home</Link>
+        <Link to={"/allcampaign"}>All Campaign</Link>
+      </div>
       <div className="flex justify-center items-center h-screen">
         <form onSubmit={HandelLogin}>
           <Card className="w-96 mx-auto">
@@ -65,8 +69,19 @@ function Login() {
               <Button type="submit" variant="gradient" fullWidth>
                 Sign In
               </Button>
-              <Button onClick={HandleGoogleLogIn} variant="gradient" fullWidth>
-                google
+              <Button
+                onClick={HandleGoogleLogIn}
+                variant="outlined"
+                size="lg"
+                className="flex mt-2 h-12 border-blue-gray-200 items-center justify-center gap-2"
+                fullWidth
+              >
+                <img
+                  src={`https://www.material-tailwind.com/logos/logo-google.png`}
+                  alt="google"
+                  className="h-6 w-6"
+                />{" "}
+                sign in with google
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">
                 Don&apos;t have an account?

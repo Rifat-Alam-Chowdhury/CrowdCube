@@ -6,14 +6,11 @@ function Nav() {
   const { user, SigNout, LogInuser } = useContext(AuthCOn);
 
   const [CurrentUser, setCurrentUser] = useState([]);
-  console.log("filter korar por", CurrentUser);
 
   useEffect(() => {
     fetch("http://localhost:5000/firebaseuid")
       .then((res) => res.json())
       .then((data) => {
-        console.log("mongo thika ana data", data);
-
         setCurrentUser(data.find((user) => user.email === LogInuser));
       })
       .catch((err) => {
@@ -67,58 +64,60 @@ function Nav() {
               //   aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-base-200  min-h-full  p-4">
+            <ul className="menu  gap-5 bg-base-200  min-h-full  p-4">
               {/* Sidebar content here */}
-              <Link
-                to="/"
-                className={({ isActive }) =>
-                  `${
-                    isActive ? "text-yellow-500" : "text-black"
-                  } rounded-xl  p-1`
-                }
-              >
-                Home
-              </Link>
-              <Link
-                to="/AllCampaign"
-                className={({ isActive }) =>
-                  `${
-                    isActive ? "text-yellow-500" : "text-black"
-                  } rounded-xl  p-1`
-                }
-              >
-                All Campaign
-              </Link>
-              <Link
-                to="/AddNewCampaign"
-                className={({ isActive }) =>
-                  `${
-                    isActive ? "text-yellow-500" : "text-black"
-                  } rounded-xl  p-1`
-                }
-              >
-                Add New Campaign
-              </Link>
-              <Link
-                to="/MyCampaigns"
-                className={({ isActive }) =>
-                  `${
-                    isActive ? "text-yellow-500" : "text-black"
-                  } rounded-xl  p-1`
-                }
-              >
-                My Campaign
-              </Link>
-              <Link
-                to="/MyDonations"
-                className={({ isActive }) =>
-                  `${
-                    isActive ? "text-yellow-500" : "text-black"
-                  } rounded-xl  p-1`
-                }
-              >
-                My Donations
-              </Link>
+              <div className="grid gap-5 p-2 font-semibold my-20">
+                <Link
+                  to="/"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "text-yellow-500" : "text-black"
+                    } rounded-xl  p-1`
+                  }
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/AllCampaign"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "text-yellow-500" : "text-black"
+                    } rounded-xl  p-1`
+                  }
+                >
+                  All Campaign
+                </Link>
+                <Link
+                  to="/AddNewCampaign"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "text-yellow-500" : "text-black"
+                    } rounded-xl  p-1`
+                  }
+                >
+                  Add New Campaign
+                </Link>
+                <Link
+                  to="/MyCampaigns"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "text-yellow-500" : "text-black"
+                    } rounded-xl  p-1`
+                  }
+                >
+                  My Campaign
+                </Link>
+                <Link
+                  to="/MyDonations"
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "text-yellow-500" : "text-black"
+                    } rounded-xl  p-1`
+                  }
+                >
+                  My Donations
+                </Link>
+              </div>
             </ul>
           </div>
         </div>
@@ -174,50 +173,54 @@ function Nav() {
           </Link>
         </div>
 
-        {/* login */}
-        <div className=" border-red-500   gap-5">
+        <div className="flex gap-5">
+          {/* login */}
           <div>
-            {user ? (
-              <button onClick={handleLogOut}>LogOut</button>
-            ) : (
-              <Link to={"/login"}>
-                <button>Login</button>
-              </Link>
-            )}
-          </div>
-        </div>
-        {/* profile */}
-        <div className="relative">
-          {user ? (
             <div>
-              {/* Button to toggle the dropdown */}
-              <button className="border-2 " onClick={toggleDropdown}>
-                <img
-                  className="w-14 rounded-full"
-                  src={CurrentUser?.photoURL}
-                  alt=""
-                />
-              </button>
-
-              {isOpen && (
-                <div className="absolute top-12 left-0 border-2 p-4 bg-white shadow-lg rounded-md w-60">
-                  <h1>{CurrentUser?.displayName}</h1>
-                  <img
-                    className="w-10"
-                    src="https://lh3.googleusercontent.com/a/ACg8ocKBmB9_ncHJF4qyjxgl_4pJcmyJDxYAy2AME-DfLATjn-Q9kQ=s96-c"
-                    alt="User Avatar"
-                  />
-                  <h1>{CurrentUser?.email}</h1>
-                  <h1>
-                    {CurrentUser?.emailVerified ? "Verified" : "Not Verified"}
-                  </h1>
-                  <h1>Provider: {CurrentUser?.providerId}</h1>
-                </div>
+              {user ? (
+                <button onClick={handleLogOut}>LogOut</button>
+              ) : (
+                <Link to={"/login"}>
+                  <button>Login</button>
+                </Link>
               )}
             </div>
-          ) : (
-            ""
-          )}
+          </div>
+          {/* profile */}
+          <div className="relative ">
+            {user ? (
+              <div>
+                {/* Button to toggle the dropdown */}
+
+                <button onClick={toggleDropdown}>
+                  profile
+                  {/* <img
+                    className="w-14 rounded-full"
+                    src={CurrentUser?.photoURL}
+                    alt=""
+                  /> */}
+                </button>
+
+                {isOpen && (
+                  <div className="border-red-600 absolute top-12 right-0 border-2 p-4 bg-white shadow-lg rounded-md w-60">
+                    <h1>{CurrentUser?.displayName}</h1>
+                    <img
+                      className="w-10"
+                      src={CurrentUser?.photoURL}
+                      alt={CurrentUser?.displayName}
+                    />
+                    <h1>{CurrentUser?.email}</h1>
+                    <h1>
+                      {CurrentUser?.emailVerified ? "Verified" : "Not Verified"}
+                    </h1>
+                    <h1>Provider: {CurrentUser?.providerId}</h1>
+                  </div>
+                )}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
     </>

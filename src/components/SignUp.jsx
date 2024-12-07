@@ -44,6 +44,10 @@ function SignUp() {
 
   return (
     <>
+      <div className="flex gap-5 font-extrabold text-2xl  justify-center">
+        <Link to={"/"}>Home</Link>
+        <Link to={"/allcampaign"}>All Campaign</Link>
+      </div>
       <div className="flex justify-center items-center h-screen">
         <form onSubmit={HandelLogin}>
           <Card className="w-96 mx-auto">

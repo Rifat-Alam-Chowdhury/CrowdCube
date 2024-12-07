@@ -51,6 +51,7 @@ export const router = createBrowserRouter([
             <My_Donations />
           </Private>
         ),
+        loader: () => fetch("http://localhost:5000/"),
       },
       {
         path: "/campaignDetails/:id",

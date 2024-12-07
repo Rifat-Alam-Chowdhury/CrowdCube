@@ -1,19 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Dcontext } from "../Context/DataContext";
+import DataContext, { Dcontext } from "../Context/DataContext";
+import { Link } from "react-router-dom";
+import { AuthCOn } from "../Context/AuthContext";
 
 function CampainDetails() {
-  const { UserData } = useContext(Dcontext);
+  const { UserData, setDonationdetails } = useContext(Dcontext);
+  const { user } = useContext(AuthCOn);
   const [Matchedpeople, setMatchedpeople] = useState([]);
+
   const [loader, setloader] = useState(false);
   const { id } = useParams();
+  const currentDate = new Date().toISOString().split("T")[0];
 
+  // console.log(user.email);
+
+  const retrundonatedid = (e) => {
+    const donationdetails = {
+      name: user.displayName,
+      email: user.email,
+      id: e,
+    };
+    console.log("donate korar por database a gese", donationdetails);
+
+    fetch("http://localhost:5000/donner", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(donationdetails),
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+
+    // setDonationdetails(donationdetails);
+    // console.log(e);
+  };
   useEffect(() => {
     const MatchedData = [UserData.find((data) => data._id === id)];
     setMatchedpeople(MatchedData);
   }, [UserData]);
-  console.log("state", Matchedpeople);
-  console.log("contex", UserData);
+
   return (
     <>
       {Matchedpeople.map((data) =>
@@ -27,13 +54,34 @@ function CampainDetails() {
 
             <div className="card-body  p-5 justify-center gap-5">
               <h1 className="card-title text-2xl font-extrabold">
+                {data?.email}
+              </h1>
+              <h1 className="card-title text-2xl font-extrabold">
                 {data?.title}
               </h1>
               <h2>{data?.cap}</h2>
               <div className="card-actions">
-                <button className="btn bg-transparent border-none">
+                {/* <button className="btn bg-transparent border-none">
                   Donate
-                </button>
+                </button> */}
+
+                {data?.date ? (
+                  data.date < currentDate ? (
+                    <button>Sorry,Last Date Was {data.date}</button>
+                  ) : (
+                    <div className="flex  gap-10 justify-between items-center">
+                      <h1>{data.date}</h1>
+                      <Link to={`/campaignDetails/${data._id}`}>
+                        <button
+                          onClick={() => retrundonatedid(data?._id)}
+                          className="btn"
+                        >
+                          Donate
+                        </button>
+                      </Link>
+                    </div>
+                  )
+                ) : null}
               </div>
             </div>
           </div>
