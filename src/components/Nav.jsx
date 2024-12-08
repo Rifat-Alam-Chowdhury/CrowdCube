@@ -9,7 +9,7 @@ function Nav() {
   const [CurrentUser, setCurrentUser] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/firebaseuid")
+    fetch("https://crowdcudee-backend.vercel.app/firebaseuid")
       .then((res) => res.json())
       .then((data) => {
         setCurrentUser(data.find((user) => user.email === LogInuser));

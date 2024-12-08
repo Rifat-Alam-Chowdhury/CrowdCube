@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
             <My_Donations />
           </Private>
         ),
-        loader: () => fetch("http://localhost:5000/"),
+        loader: () => fetch("https://crowdcudee-backend.vercel.app/"),
       },
       {
         path: "/campaignDetails/:id",

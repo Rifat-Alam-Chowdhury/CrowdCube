@@ -40,7 +40,7 @@ function My_Campaigns() {
     };
     console.log(updatedvaluee);
 
-    fetch("http://localhost:5000/update", {
+    fetch("https://crowdcudee-backend.vercel.app/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function My_Campaigns() {
       email,
       e,
     };
-    fetch("http://localhost:5000/delete", {
+    fetch("https://crowdcudee-backend.vercel.app/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -162,7 +162,7 @@ function My_Campaigns() {
                         className="btn"
                         type="submit"
                       >
-                        SubmiT
+                        SUBMIT
                       </button>
                     </form>
                   </div>

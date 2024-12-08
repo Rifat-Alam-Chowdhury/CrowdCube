@@ -31,7 +31,7 @@ function Add_New_Campaign() {
   const COnfirmedAndSentToDataBase = () => {
     //crowdcudee-backend.vercel.app/
     //localhost:5000/
-    fetch("http://localhost:5000/formdetails", {
+    fetch("https://crowdcudee-backend.vercel.app/formdetails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

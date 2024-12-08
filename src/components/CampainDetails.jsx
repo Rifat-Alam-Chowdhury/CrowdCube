@@ -20,7 +20,7 @@ function CampainDetails() {
       id: e,
     };
 
-    fetch("http://localhost:5000/donner", {
+    fetch("https://crowdcudee-backend.vercel.app/donner", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

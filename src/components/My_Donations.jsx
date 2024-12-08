@@ -9,7 +9,7 @@ function My_Donations() {
   const [finds, setfinds] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/donner")
+    fetch("https://crowdcudee-backend.vercel.app/donner")
       .then((res) => res.json())
       .then((data) => {
         const emails = data.filter((item) => item.email === user.email);
