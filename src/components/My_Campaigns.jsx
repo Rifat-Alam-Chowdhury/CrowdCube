@@ -143,7 +143,7 @@ function My_Campaigns() {
                       <br />
                       <br />
 
-                      <label htmlFor="url">URL:</label>
+                      <label htmlFor="url">URL :</label>
                       <input
                         className="input input-bordered"
                         type="text"
