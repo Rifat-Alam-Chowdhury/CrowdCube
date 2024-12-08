@@ -162,7 +162,7 @@ function My_Campaigns() {
                         className="btn"
                         type="submit"
                       >
-                        Submit
+                        SubmiT
                       </button>
                     </form>
                   </div>
