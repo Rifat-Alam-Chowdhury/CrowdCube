@@ -4,13 +4,10 @@ function Footer() {
   return (
     <>
       <footer className="footer bg-neutral text-neutral-content p-10">
-        <nav>
-          <h6 className="footer-title">Services</h6>
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
-        </nav>
+        <div className=" w-full text-6xl flex justify-center items-center my-auto p-5">
+          <h1>CrowdCube</h1>
+        </div>
+
         <nav>
           <h6 className="footer-title">Company</h6>
           <a className="link link-hover">About us</a>

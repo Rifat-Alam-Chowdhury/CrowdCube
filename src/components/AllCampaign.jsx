@@ -5,7 +5,6 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  button,
 } from "@material-tailwind/react";
 import { useLoaderData } from "react-router";
 import { Link } from "react-router-dom";
@@ -14,7 +13,6 @@ export default function AllCampaign() {
   const UserData = useLoaderData([]);
   console.log("test", UserData);
   const currentDate = new Date().toISOString().split("T")[0];
-  console.log(currentDate);
 
   return (
     <>
@@ -62,11 +60,6 @@ export default function AllCampaign() {
                     </div>
                   )
                 ) : null}
-
-                {/* {data?.date?<date.now() link disbale :{data?.date}
-                <Link className="border-2" to={`/campaignDetails/${data?._id}`}>
-                  Donate
-                </Link>}  */}
               </CardFooter>
             </Card>
           ))}

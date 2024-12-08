@@ -1,12 +1,10 @@
 import Swal from "sweetalert2";
 
 import React, { useContext, useState } from "react";
-import { Dcontext } from "../Context/DataContext";
 import { AuthCOn } from "../Context/AuthContext";
 import {
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
@@ -14,13 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 function Add_New_Campaign() {
   const { user } = useContext(AuthCOn);
-  const [MongoData, setMongoData] = useState([]);
   const [confirme, setconfirme] = useState([]);
   const navigate = useNavigate();
-  console.log("confrimmm", confirme.email);
-
-  // const id = UserData[0]._id;
-  // console.log(UserData[0]._id);
 
   const FormInfo = (e) => {
     e.preventDefault();
@@ -28,12 +21,9 @@ function Add_New_Campaign() {
     const title = e.target.title.value;
     const cap = e.target.cap.value;
     const url = e.target.url.value;
-    // const display = e.target.display.value;
-    const email = e.target.email.value;
+    const email = user.email;
     const option = e.target.option.value;
     const date = e.target.date.value;
-
-    console.log(email, option, title, cap, url, date);
 
     setconfirme({ email, option, title, cap, url, date });
   };
@@ -41,7 +31,6 @@ function Add_New_Campaign() {
   const COnfirmedAndSentToDataBase = () => {
     //crowdcudee-backend.vercel.app/
     //localhost:5000/
-
     fetch("http://localhost:5000/formdetails", {
       method: "POST",
       headers: {
@@ -53,7 +42,6 @@ function Add_New_Campaign() {
       .then((data) => {
         Swal.fire({
           title: "Your Campaign Has Been Added",
-
           icon: "success",
         });
         setconfirme([]);

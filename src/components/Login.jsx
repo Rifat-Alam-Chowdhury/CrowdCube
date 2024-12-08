@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { AuthCOn } from "../Context/AuthContext";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ import {
 function Login() {
   const { UserLogInWithEmailPass, GoogleLogIn } = useContext(AuthCOn);
   const navigate = useNavigate();
+  const [Error, SetError] = useState("");
 
   const HandelLogin = (e) => {
     e.preventDefault();
@@ -23,14 +24,11 @@ function Login() {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log(email, password);
     UserLogInWithEmailPass(email, password)
       .then((userCredential) => {
         navigate("/");
-        const user = userCredential.user;
-        console.log(user);
       })
-      .catch((err) => console.log(err.code));
+      .catch((err) => SetError(err.code));
   };
 
   const HandleGoogleLogIn = () => {
@@ -41,10 +39,6 @@ function Login() {
 
   return (
     <>
-      <div className="flex gap-5 font-extrabold  justify-center">
-        <Link to={"/"}>Home</Link>
-        <Link to={"/allcampaign"}>All Campaign</Link>
-      </div>
       <div className="flex justify-center items-center h-screen">
         <form onSubmit={HandelLogin}>
           <Card className="w-96 mx-auto">
@@ -61,9 +55,13 @@ function Login() {
             <CardBody className="flex flex-col gap-4">
               <Input name="email" label="Email" size="lg" />
               <Input name="password" label="Password" size="lg" />
-              <div className="-ml-2.5">
-                <Checkbox label="Remember Me" />
-              </div>
+              {Error ? (
+                <span className="text-red-400">
+                  {Error.replace("auth/", "")}
+                </span>
+              ) : (
+                ""
+              )}
             </CardBody>
             <CardFooter className="pt-0">
               <Button type="submit" variant="gradient" fullWidth>

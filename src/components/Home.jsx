@@ -2,23 +2,13 @@ import React, { useContext, useState } from "react";
 import { useLoaderData } from "react-router";
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import RunnigCampaing from "./RunnigCampaing";
+import { Link } from "react-router-dom";
 
 function Home() {
   const data = useLoaderData();
 
   const [User, setUser] = useState(data);
   console.log(User);
-
-  const uppdateuser = () => {
-    setUser([
-      ...User,
-      {
-        title: "alam",
-        cap: "asaas",
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8SdsR9K6qNNxkExuSRl5RWtaas2EIeFLl8A&s",
-      },
-    ]);
-  };
 
   return (
     <>
@@ -56,7 +46,7 @@ function Home() {
                 </Typography>
                 <div className="flex justify-center gap-2">
                   <Button size="lg" color="white">
-                    Explore
+                    <Link to={`/campaignDetails/${user?._id}`}>Explore</Link>
                   </Button>
                 </div>
               </div>

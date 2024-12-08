@@ -31,9 +31,17 @@ function SignUp() {
     photoURL = e.target.PhotoUrl.value;
 
     console.log(email, password, displayName, photoURL);
-    CreateNewUser(email, password, displayName, photoURL).then(() => {
-      navigate("/");
-    });
+
+    const regex = /^(?=(.*[a-z]))(?=(.*[A-Z]))[a-zA-Z]{6,}$/;
+    if (regex.test(password)) {
+      CreateNewUser(email, password, displayName, photoURL).then(() => {
+        navigate("/");
+      });
+    } else {
+      alert(
+        "Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long."
+      );
+    }
   };
 
   const HandleGoogleLogIn = () => {
@@ -44,10 +52,6 @@ function SignUp() {
 
   return (
     <>
-      <div className="flex gap-5 font-extrabold text-2xl  justify-center">
-        <Link to={"/"}>Home</Link>
-        <Link to={"/allcampaign"}>All Campaign</Link>
-      </div>
       <div className="flex justify-center items-center h-screen">
         <form onSubmit={HandelLogin}>
           <Card className="w-96 mx-auto">

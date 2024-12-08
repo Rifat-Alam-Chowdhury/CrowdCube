@@ -6,26 +6,20 @@ import { AuthCOn } from "../Context/AuthContext";
 function My_Donations() {
   const { user } = useContext(AuthCOn);
   const allldata = useLoaderData();
-  const [finds, setfinds] = useState();
-
-  console.log(finds);
-  // console.log(user.email);
+  const [finds, setfinds] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:5000/donner")
       .then((res) => res.json())
       .then((data) => {
         const emails = data.filter((item) => item.email === user.email);
-        // const finding = allldata.map((item) => item._id === emails[0].id);
+
         const findings = emails
           .map((email) => {
             return allldata.filter((item) => item._id === email.id);
           })
           .flat();
         setfinds(findings);
-
-        // Extract emails into an array === emails.id
-        // console.log(finding); // Log the array of emails
       })
       .catch((err) => console.log(err.code));
   }, []);

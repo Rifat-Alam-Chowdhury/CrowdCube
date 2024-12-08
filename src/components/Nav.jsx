@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthCOn } from "../Context/AuthContext";
+import { Button } from "@material-tailwind/react";
 
 function Nav() {
-  const { user, SigNout, LogInuser } = useContext(AuthCOn);
+  const { user, SigNout, LogInuser, GoogleLogIn } = useContext(AuthCOn);
 
   const [CurrentUser, setCurrentUser] = useState([]);
 
@@ -20,8 +21,6 @@ function Nav() {
 
   const navigate = useNavigate();
 
-  // console.log(user);
-
   const handleLogOut = () => {
     SigNout().then(() => {
       navigate("/login");
@@ -32,6 +31,11 @@ function Nav() {
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+  const HandleGoogleLogIn = () => {
+    GoogleLogIn().then(() => {
+      navigate("/");
+    });
   };
 
   return (
@@ -193,16 +197,15 @@ function Nav() {
                 {/* Button to toggle the dropdown */}
 
                 <button onClick={toggleDropdown}>
-                  profile
-                  {/* <img
+                  <img
                     className="w-14 rounded-full"
                     src={CurrentUser?.photoURL}
                     alt=""
-                  /> */}
+                  />
                 </button>
 
                 {isOpen && (
-                  <div className="border-red-600 absolute top-12 right-0 border-2 p-4 bg-white shadow-lg rounded-md w-60">
+                  <div className="z-20 absolute top-12 right-0 border-2 p-4 bg-white shadow-lg rounded-md w-60">
                     <h1>{CurrentUser?.displayName}</h1>
                     <img
                       className="w-10"
@@ -218,7 +221,20 @@ function Nav() {
                 )}
               </div>
             ) : (
-              ""
+              <Button
+                onClick={HandleGoogleLogIn}
+                variant="outlined"
+                size="sm"
+                className="flex mt-2 h-12 border-blue-gray-200 items-center justify-center gap-2"
+                fullWidth
+              >
+                <img
+                  src={`https://www.material-tailwind.com/logos/logo-google.png`}
+                  alt="google"
+                  className="h-6 w-6"
+                />{" "}
+                sign in with google
+              </Button>
             )}
           </div>
         </div>

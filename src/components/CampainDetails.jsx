@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import DataContext, { Dcontext } from "../Context/DataContext";
+import { Dcontext } from "../Context/DataContext";
 import { Link } from "react-router-dom";
 import { AuthCOn } from "../Context/AuthContext";
 
 function CampainDetails() {
-  const { UserData, setDonationdetails } = useContext(Dcontext);
+  const { UserData } = useContext(Dcontext);
   const { user } = useContext(AuthCOn);
   const [Matchedpeople, setMatchedpeople] = useState([]);
 
@@ -13,15 +13,12 @@ function CampainDetails() {
   const { id } = useParams();
   const currentDate = new Date().toISOString().split("T")[0];
 
-  // console.log(user.email);
-
   const retrundonatedid = (e) => {
     const donationdetails = {
       name: user.displayName,
       email: user.email,
       id: e,
     };
-    console.log("donate korar por database a gese", donationdetails);
 
     fetch("http://localhost:5000/donner", {
       method: "POST",
@@ -32,9 +29,6 @@ function CampainDetails() {
     })
       .then((res) => res.json())
       .then((data) => {});
-
-    // setDonationdetails(donationdetails);
-    // console.log(e);
   };
   useEffect(() => {
     const MatchedData = [UserData.find((data) => data._id === id)];
@@ -61,10 +55,6 @@ function CampainDetails() {
               </h1>
               <h2>{data?.cap}</h2>
               <div className="card-actions">
-                {/* <button className="btn bg-transparent border-none">
-                  Donate
-                </button> */}
-
                 {data?.date ? (
                   data.date < currentDate ? (
                     <button>Sorry,Last Date Was {data.date}</button>

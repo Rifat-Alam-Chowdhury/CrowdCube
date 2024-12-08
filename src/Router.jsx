@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import CampainDetails from "./components/CampainDetails";
 import SignUp from "./components/SignUp";
 import Private from "./components/Private/Private";
+import Error from "./components/Error";
 
 export const router = createBrowserRouter([
   {
@@ -57,14 +58,18 @@ export const router = createBrowserRouter([
         path: "/campaignDetails/:id",
         element: <CampainDetails></CampainDetails>,
       },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/SignUp",
+        element: <SignUp></SignUp>,
+      },
     ],
   },
   {
-    path: "/login",
-    element: <Login></Login>,
-  },
-  {
-    path: "/SignUp",
-    element: <SignUp></SignUp>,
+    path: "*",
+    element: <Error></Error>,
   },
 ]);
