@@ -103,7 +103,7 @@ function My_Campaigns() {
                   }}
                   className="btn"
                 >
-                  delete
+                  Delete
                 </button>
 
                 <dialog id={`my_modal_${data?._id}`} className="modal">
