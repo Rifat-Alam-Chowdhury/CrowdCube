@@ -8,7 +8,7 @@ const DataContext = ({ children }) => {
   const [Donationdetails, setDonationdetails] = useState([]);
 
   useEffect(() => {
-    fetch("https://crowdcudee-backend.vercel.app")
+    fetch(import.meta.env.VITE_PORT)
       .then((res) => res.json())
       .then((data) => setUserData(data));
   }, []);

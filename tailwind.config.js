@@ -6,5 +6,9 @@ module.exports = withMT({
   theme: {
     extend: {},
   },
+
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["cupcake", "dark", "corporate"], // Include the desired themes
+  },
 });

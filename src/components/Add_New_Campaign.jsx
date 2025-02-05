@@ -14,6 +14,7 @@ function Add_New_Campaign() {
   const { user } = useContext(AuthCOn);
   const [confirme, setconfirme] = useState([]);
   const navigate = useNavigate();
+  console.log(confirme);
 
   const FormInfo = (e) => {
     e.preventDefault();
@@ -27,11 +28,12 @@ function Add_New_Campaign() {
 
     setconfirme({ email, option, title, cap, url, date });
   };
+  // console.log(confirme);
 
   const COnfirmedAndSentToDataBase = () => {
     //crowdcudee-backend.vercel.app/
     //localhost:5000/
-    fetch("https://crowdcudee-backend.vercel.app/formdetails", {
+    fetch("http://localhost:5000/formdetails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,23 +54,12 @@ function Add_New_Campaign() {
 
   return (
     <>
-      <div className="flex ">
+      <div className="lg:flex ">
         <div className="  lg:w-1/2">
           <h1 className="text-center">
             Welcome,<span className="font-extrabold"> {user?.displayName}</span>
           </h1>
           <form onSubmit={FormInfo} className="card-body">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                name="email"
-                type="text"
-                placeholder="email"
-                className="input input-bordered"
-              />
-            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Campaign Type</span>
@@ -145,7 +136,7 @@ function Add_New_Campaign() {
           </form>
         </div>
 
-        <div className="border-2 w-1/2">
+        <div className=" w-1/2">
           {confirme.email ? (
             <Card className="w-full max-w-[26rem] shadow-lg">
               <CardHeader className="" floated={false} color="blue-gray">
@@ -176,7 +167,9 @@ function Add_New_Campaign() {
                 <div className=" flex justify-between items-center">
                   <div>
                     <Typography color="gray">
-                      <p className="truncate">{confirme?.cap?.slice(0, 200)}</p>
+                      <p className="line-clamp-3">
+                        {confirme?.cap?.slice(0, 200)}
+                      </p>
                     </Typography>
                     <Typography color="gray">
                       <p className="truncate">{confirme?.date}</p>
@@ -189,9 +182,7 @@ function Add_New_Campaign() {
               </CardBody>
             </Card>
           ) : (
-            <>
-              <h1>noo</h1>
-            </>
+            <></>
           )}
         </div>
       </div>

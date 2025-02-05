@@ -16,3 +16,6 @@ A fully dynamic crowdfunding platform built with **MongoDB**, **Node.js (Express
 - **Backend**: Node.js with Express.js
 - **Database**: MongoDB
 - **Authentication**: FIREBASE
+
+##Live Link
+[CrowdCube](https://crowdcube-a0a3a.firebaseapp.com/)

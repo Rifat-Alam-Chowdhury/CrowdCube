@@ -9,7 +9,7 @@ function My_Donations() {
   const [finds, setfinds] = useState([]);
 
   useEffect(() => {
-    fetch("https://crowdcudee-backend.vercel.app/donner")
+    fetch("import.meta.env.VITE_PORTdonner")
       .then((res) => res.json())
       .then((data) => {
         const emails = data.filter((item) => item.email === user.email);
@@ -20,21 +20,28 @@ function My_Donations() {
           })
           .flat();
         setfinds(findings);
-      })
-      .catch((err) => console.log(err.code));
+      });
   }, []);
 
   return (
     <>
-      <h1>you have donated to..</h1>
-      {finds.map((data) => (
-        <div className="border-2 border-red-300">
-          <h1>{data.title}</h1>
-          <h1>{data.cap}</h1>
-          <h1>{data.email}</h1>
-          <h1>{data.option}</h1>
-        </div>
-      ))}
+      <h1 className="text-center  font-extrabold text-2xl mb-5">
+        Great!!...You Have Donated To..
+      </h1>
+      <div className="grid lg:grid-cols-2 gap-5 mb-8 ">
+        {finds.map((data) => (
+          <div className="card bg-base-100 w-96 shadow-xl p-5 mx-auto">
+            <figure>
+              <img className="rounded-lg" src={data?.url} alt="Shoes" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{data?.title}</h2>
+              <p className="line-clamp-3">{data?.cap}</p>
+              <p>{data?.date}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 }

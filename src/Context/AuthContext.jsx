@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -26,7 +27,7 @@ const AuthCOntext = ({ children }) => {
         const email = user.user.email;
         const emailVerified = user.user.emailVerified;
         const providerId = user.user.providerId;
-        console.log(email, emailVerified, providerId);
+        //(email, emailVerified, providerId);
         const FIreBaseData = {
           email,
           emailVerified,
@@ -34,8 +35,8 @@ const AuthCOntext = ({ children }) => {
           displayName,
           photoURL,
         };
-        // https://crowdcudee-backend.vercel.app/
-        fetch("https://crowdcudee-backend.vercel.app/firebaseuid", {
+        // import.meta.env.VITE_PORT
+        fetch("import.meta.env.VITE_PORTfirebaseuid", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -45,7 +46,7 @@ const AuthCOntext = ({ children }) => {
       })
       .then(() => {
         sendEmailVerification(auth.currentUser).then(() => {
-          console.log("Verification code has been sent to your email");
+          //("Verification code has been sent to your email");
         });
       });
   };
@@ -60,7 +61,7 @@ const AuthCOntext = ({ children }) => {
         const providerId = user.user.providerId;
         const displayName = user.user.displayName;
         const photoURL = user.user.photoURL;
-        console.log(email, emailVerified, providerId, displayName, photoURL);
+        //(email, emailVerified, providerId, displayName, photoURL);
         const FIreBaseData = {
           email,
           emailVerified,
@@ -68,8 +69,8 @@ const AuthCOntext = ({ children }) => {
           displayName,
           photoURL,
         };
-        // https://crowdcudee-backend.vercel.app/
-        fetch("https://crowdcudee-backend.vercel.app/firebaseuid", {
+        // import.meta.env.VITE_PORT
+        fetch(`${import.meta.env.VITE_PORT}firebaseuid`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +79,7 @@ const AuthCOntext = ({ children }) => {
         });
       })
       .catch((err) => {
-        console.log(err.code);
+        //(err.code);
       });
   };
 
@@ -89,13 +90,25 @@ const AuthCOntext = ({ children }) => {
 
   // observer
 
-  console.log(user, loader);
+  //(user, loader);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setuser(user);
         setLogInuser(user.email);
+        console.log(user);
+
+        if (user?.email) {
+          const users = { email: user.email };
+          axios
+            .post(`${import.meta.env.VITE_PORT}jwt`, users, {
+              withCredentials: true,
+            })
+
+            .then((res) => console.log("log in", res.data));
+        } else {
+        }
       }
       setloader(false);
     });

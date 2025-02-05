@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 
 function Home() {
   const data = useLoaderData();
+  console.log(import.meta.env.VITE_PORT);
 
   const [User, setUser] = useState(data);
-  console.log(User);
+  //(User);
 
   return (
     <>
@@ -57,7 +58,7 @@ function Home() {
       {/* slider */}
       {/* running campaing selection */}
       <h1 className="text-center lg:text-5xl p-5">Running Campaign</h1>
-      <div className=" gap-5 grid lg:grid-cols-3 ">
+      <div className=" gap-5  grid lg:grid-cols-3 mb-5  ">
         <RunnigCampaing User={User} />
       </div>
       {/* running campaing selection */}

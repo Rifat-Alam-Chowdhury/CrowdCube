@@ -20,14 +20,15 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
-        loader: () => fetch("https://crowdcudee-backend.vercel.app"),
+        element: <Home />,
+        loader: () => fetch(import.meta.env.VITE_PORT),
+        // loader: () => fetch("http://localhost:5000/"),
       },
 
       {
         path: "/AllCampaign",
         element: <AllCampaign />,
-        loader: () => fetch("https://crowdcudee-backend.vercel.app"),
+        loader: () => fetch(import.meta.env.VITE_PORT),
       },
       {
         path: "/AddNewCampaign",
@@ -52,7 +53,7 @@ export const router = createBrowserRouter([
             <My_Donations />
           </Private>
         ),
-        loader: () => fetch("https://crowdcudee-backend.vercel.app/"),
+        loader: () => fetch("import.meta.env.VITE_PORT"),
       },
       {
         path: "/campaignDetails/:id",

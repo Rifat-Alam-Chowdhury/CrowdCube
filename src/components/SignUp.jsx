@@ -30,18 +30,12 @@ function SignUp() {
 
     photoURL = e.target.PhotoUrl.value;
 
-    console.log(email, password, displayName, photoURL);
+    //(email, password, displayName, photoURL);
 
     const regex = /^(?=(.*[a-z]))(?=(.*[A-Z]))[a-zA-Z]{6,}$/;
-    if (regex.test(password)) {
-      CreateNewUser(email, password, displayName, photoURL).then(() => {
-        navigate("/");
-      });
-    } else {
-      alert(
-        "Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long."
-      );
-    }
+    CreateNewUser(email, password, displayName, photoURL).then(() => {
+      navigate("/");
+    });
   };
 
   const HandleGoogleLogIn = () => {
